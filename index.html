@@ -2,101 +2,111 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Will you be my Valentine?</title>
+  <title>For Lauryn 💌</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-      background: #fff;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    }
-    .card {
-      max-width: 700px;
-      padding: 32px;
-      border-radius: 20px;
-      border: 1px solid #eee;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.08);
-      text-align: center;
-    }
-    h1 {
-      font-size: 38px;
-      margin-bottom: 10px;
-    }
-    p {
-      font-size: 18px;
-      line-height: 1.5;
-    }
-    .buttons {
-      margin-top: 20px;
-      display: flex;
-      justify-content: center;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-    button {
-      font-size: 18px;
-      padding: 14px 22px;
-      border-radius: 14px;
-      border: none;
-      cursor: pointer;
-    }
-    .yes {
-      background: #111;
-      color: white;
-    }
-    .no {
-      background: #f2f2f2;
-    }
-    .message {
-      margin-top: 20px;
-      font-size: 20px;
-      font-weight: 600;
-    }
-    .footer {
-      margin-top: 18px;
-      font-size: 14px;
-      opacity: 0.7;
-    }
+    body{margin:0;min-height:100vh;display:grid;place-items:center;background:#fff;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;padding:18px}
+    .card{width:min(820px,100%);padding:26px;border-radius:22px;border:1px solid #eee;box-shadow:0 16px 48px rgba(0,0,0,.10);text-align:center}
+    h1{font-size:34px;margin:0 0 8px}
+    p{font-size:18px;line-height:1.5;margin:0 0 14px}
+    .photo{width:170px;height:170px;border-radius:999px;object-fit:cover;border:4px solid #fff;box-shadow:0 12px 28px rgba(0,0,0,.12);margin:12px 0 18px}
+    .row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:10px}
+    input{font-size:16px;padding:12px 14px;border-radius:12px;border:1px solid #ddd;width:min(360px,100%)}
+    button{font-size:16px;padding:12px 16px;border-radius:12px;border:none;cursor:pointer}
+    .primary{background:#111;color:#fff}
+    .secondary{background:#f2f2f2}
+    .hint{font-size:14px;opacity:.75;margin-top:10px}
+    .status{margin-top:14px;font-weight:650;font-size:18px}
+    .hidden{display:none}
+    .valentine{margin-top:18px;padding:18px;border-radius:18px;border:1px dashed #ddd;background:#fafafa}
+    .big{font-size:30px;margin:0 0 10px}
+    .footer{margin-top:14px;font-size:13px;opacity:.7}
+    .embedWrap{margin-top:16px;display:grid;gap:10px;place-items:center}
+    iframe{border-radius:14px;border:1px solid #eee;width:min(520px,100%);height:152px}
+    .yt{height:295px}
   </style>
 </head>
+
 <body>
   <div class="card">
     <h1>Lauryn ❤️</h1>
-    <p>
-      I made this little page just for you.<br>
-      Will you be my Valentine?
-    </p>
 
-    <div class="buttons">
-      <button class="yes" onclick="yes()">Yes 💖</button>
-      <button class="no" onclick="no()">No 🙈</button>
+    <!-- Upload lauryn.jpg into the repo -->
+    <img class="photo" src="lauryn.jpg" alt="Lauryn">
+
+    <p>Before you unlock your Valentine message, answer this 😌</p>
+    <p><b>Question:</b> What was the acronym we used when we first started to know each other?</p>
+
+    <div class="row">
+      <input id="answer" placeholder="Type your answer here..." autocomplete="off">
+      <button class="primary" id="unlockBtn">Unlock 💌</button>
     </div>
 
-    <div class="message" id="msg"></div>
+    <div class="hint">Hint: three letters. Not case sensitive.</div>
+
+    <div class="status" id="status"></div>
+
+    <div class="valentine hidden" id="valentineBox">
+      <div class="big">Will you be my Valentine? 💖</div>
+      <p>
+        I made this just for you. You make life feel lighter, calmer, and sweeter.
+        I’m choosing you, on purpose, every time.
+      </p>
+      <p style="margin:0;"><b>Reply “YES” to me right now 😄</b></p>
+    </div>
+
+    <div class="embedWrap">
+      <p style="margin:0;font-size:16px;opacity:.85">
+        Tap play below 🎵 (phones usually require a tap)
+      </p>
+
+      <!-- OPTION A (Spotify): paste your Spotify embed src URL here -->
+      <!-- Example format: https://open.spotify.com/embed/track/TRACK_ID -->
+      <iframe
+  style="border-radius:12px"
+  src="https://open.spotify.com/embed/track/5s33nLb8BCeeKep2rfG7To?utm_source=generator"
+  width="100%"
+  height="152"
+  frameborder="0"
+  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+  loading="lazy"
+  title="Spotify player">
+</iframe>
+
+
+      <!-- OPTION B (YouTube): if you prefer YouTube, uncomment this block and add your video id -->
+      <!--
+      <iframe
+        class="yt"
+        src="https://www.youtube.com/embed/VIDEO_ID_HERE?rel=0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        loading="lazy"
+        title="YouTube player">
+      </iframe>
+      -->
+    </div>
+
     <div class="footer">Made with love by Paul-Emmanuel</div>
   </div>
 
   <script>
-    const msg = document.getElementById("msg");
-    const noTexts = [
-      "Are you sure? 😅",
-      "Try again 😌",
-      "Lauryn please 😭",
-      "Okay… last chance 💕"
-    ];
-    let i = 0;
+    const statusEl = document.getElementById("status");
+    const valentineBox = document.getElementById("valentineBox");
+    const answerEl = document.getElementById("answer");
 
-    function yes() {
-      msg.textContent = "Yessss! Screenshot this and send it to me ❤️";
-    }
+    // Correct answer: NTD (case-insensitive)
+    const correct = "ntd";
 
-    function no() {
-      msg.textContent = noTexts[i % noTexts.length];
-      i++;
-    }
+    document.getElementById("unlockBtn").addEventListener("click", () => {
+      const user = (answerEl.value || "").trim().toLowerCase();
+      if (!user) { statusEl.textContent = "Type an answer first 🙂"; return; }
+      if (user === correct) {
+        statusEl.textContent = "Correct 😌 Unlocking...";
+        valentineBox.classList.remove("hidden");
+      } else {
+        statusEl.textContent = "Nope 🙈 Try again.";
+      }
+    });
   </script>
 </body>
 </html>
