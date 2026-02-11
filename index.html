@@ -7,10 +7,10 @@
 
   <style>
     :root{
-      --blur-page1: 16px;
-      --blur-page2: 4px;
-      --dim: 0.28;         /* overall darkening */
-      --vignette: 0.55;    /* edge darkening strength */
+      --blur-page1: 18px;   /* blur on question page */
+      --blur-page2: 3px;    /* blur on valentine page */
+      --dim: 0.30;          /* overall darkening */
+      --vignette: 0.62;     /* edge darkening strength */
     }
 
     body{
@@ -29,17 +29,16 @@
       position:fixed;
       inset:0;
       z-index:-3;
-      background-image:url("lauryn.jpg");
+      background-image:url("lauryn.jpg"); /* REQUIRED: upload lauryn.jpg */
       background-size:cover;
       background-position:center;
       background-repeat:no-repeat;
-      transform:scale(1.06);
+      transform:scale(1.08);
       will-change:filter, transform;
       transition:filter 900ms ease, transform 900ms ease;
       filter: blur(var(--blur-page1));
     }
 
-    /* Slight darkening so text pops */
     .dim{
       position:fixed;
       inset:0;
@@ -48,7 +47,6 @@
       pointer-events:none;
     }
 
-    /* Cinematic vignette */
     .vignette{
       position:fixed;
       inset:0;
@@ -127,6 +125,43 @@
       pointer-events:none;
       z-index:9999;
     }
+
+    /* YES popup overlay */
+    #yesPopup{
+      position:fixed;
+      inset:0;
+      display:grid;
+      place-items:center;
+      background: rgba(0,0,0,0.55);
+      z-index:10000;
+      padding:18px;
+    }
+    #yesPopup.hidden{ display:none; }
+    #yesPopup .popupCard{
+      width:min(520px,100%);
+      background: rgba(255,255,255,0.95);
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,0.25);
+      box-shadow:0 18px 60px rgba(0,0,0,.35);
+      padding:16px;
+      text-align:center;
+      animation: popZoom 260ms ease both;
+    }
+    #yesPopup img{
+      width:100%;
+      height:auto;
+      border-radius:14px;
+      display:block;
+    }
+    #yesPopup .popupText{
+      margin:12px 0 10px;
+      font-size:18px;
+      font-weight:650;
+    }
+    @keyframes popZoom{
+      from{opacity:0; transform:scale(0.96) translateY(8px);}
+      to{opacity:1; transform:scale(1) translateY(0);}
+    }
   </style>
 </head>
 
@@ -137,7 +172,7 @@
 
   <canvas id="confettiCanvas" class="hidden"></canvas>
 
-  <!-- PAGE 1 -->
+  <!-- PAGE 1: Question -->
   <div class="card" id="page1">
     <h1>Lauryn ❤️</h1>
 
@@ -155,10 +190,9 @@
     <div class="note">Made with love by Paul-Emmanuel.</div>
   </div>
 
-  <!-- PAGE 2 -->
+  <!-- PAGE 2: Valentine -->
   <div class="card hidden" id="page2">
     <h1>Lauryn 💌</h1>
-
     <p>
       I made this little page just for you.<br/>
       Will you be my Valentine?
@@ -185,6 +219,15 @@
     <div class="note">Tap play above 🎵 Made with love by Paul-Emmanuel.</div>
   </div>
 
+  <!-- YES POPUP (upload yes.jpg) -->
+  <div id="yesPopup" class="hidden" aria-hidden="true">
+    <div class="popupCard">
+      <img src="yes.jpg" alt="Surprise">
+      <div class="popupText">I knew you’d say yes 😄💖</div>
+      <button id="closePopup" class="no">Close</button>
+    </div>
+  </div>
+
   <script>
     // -------- Page switching --------
     const page1 = document.getElementById("page1");
@@ -194,20 +237,16 @@
     const correct = "ntd";
 
     function showPage2() {
-      // background sharpen + vignette stays
       document.body.classList.remove("page1");
       document.body.classList.add("page2");
 
-      // swap content
       page1.classList.add("hidden");
       page2.classList.remove("hidden");
 
-      // entrance animation
       page2.classList.remove("popIn");
       void page2.offsetWidth; // restart animation
       page2.classList.add("popIn");
 
-      // confetti longer on unlock
       launchConfetti(14000);
     }
 
@@ -227,6 +266,7 @@
     document.getElementById('yesBtn').onclick = () => {
       msg.textContent = "Yessss! Screenshot this and send it to me 😄❤️";
       launchConfetti(18000);
+      openYesPopup();
     };
 
     const noBtn = document.getElementById('noBtn');
@@ -306,6 +346,25 @@
       }
       requestAnimationFrame(frame);
     }
+
+    // -------- YES popup logic --------
+    const yesPopup = document.getElementById("yesPopup");
+    const closePopup = document.getElementById("closePopup");
+
+    function openYesPopup(){
+      yesPopup.classList.remove("hidden");
+      yesPopup.setAttribute("aria-hidden", "false");
+    }
+    function closeYesPopup(){
+      yesPopup.classList.add("hidden");
+      yesPopup.setAttribute("aria-hidden", "true");
+    }
+    closePopup.onclick = closeYesPopup;
+
+    // close when clicking outside the card
+    yesPopup.addEventListener("click", (e) => {
+      if (e.target === yesPopup) closeYesPopup();
+    });
   </script>
 </body>
 </html>
