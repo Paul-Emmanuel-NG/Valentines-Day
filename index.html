@@ -4,108 +4,248 @@
   <meta charset="utf-8">
   <title>For Lauryn 💌</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <style>
-    body{margin:0;min-height:100vh;display:grid;place-items:center;background:#fff;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;padding:18px}
-    .card{width:min(820px,100%);padding:26px;border-radius:22px;border:1px solid #eee;box-shadow:0 16px 48px rgba(0,0,0,.10);text-align:center}
+    body{
+      margin:0;min-height:100vh;display:grid;place-items:center;
+      background:#fff;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      padding:18px
+    }
+    .card{
+      width:min(820px,100%);
+      padding:26px;border-radius:22px;border:1px solid #eee;
+      box-shadow:0 16px 48px rgba(0,0,0,.10);
+      text-align:center
+    }
     h1{font-size:34px;margin:0 0 8px}
     p{font-size:18px;line-height:1.5;margin:0 0 14px}
-    .photo{width:170px;height:170px;border-radius:999px;object-fit:cover;border:4px solid #fff;box-shadow:0 12px 28px rgba(0,0,0,.12);margin:12px 0 18px}
+    .photo{
+      width:170px;height:170px;border-radius:999px;object-fit:cover;
+      border:4px solid #fff;box-shadow:0 12px 28px rgba(0,0,0,.12);
+      margin:12px 0 18px
+    }
     .row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:10px}
-    input{font-size:16px;padding:12px 14px;border-radius:12px;border:1px solid #ddd;width:min(360px,100%)}
-    button{font-size:16px;padding:12px 16px;border-radius:12px;border:none;cursor:pointer}
+    input{
+      font-size:16px;padding:12px 14px;border-radius:12px;border:1px solid #ddd;
+      width:min(360px,100%)
+    }
+    button{
+      font-size:16px;padding:12px 16px;border-radius:12px;border:none;cursor:pointer
+    }
     .primary{background:#111;color:#fff}
     .secondary{background:#f2f2f2}
     .hint{font-size:14px;opacity:.75;margin-top:10px}
     .status{margin-top:14px;font-weight:650;font-size:18px}
     .hidden{display:none}
-    .valentine{margin-top:18px;padding:18px;border-radius:18px;border:1px dashed #ddd;background:#fafafa}
+
+    .valentine{
+      margin-top:18px;padding:18px;border-radius:18px;border:1px dashed #ddd;background:#fafafa
+    }
     .big{font-size:30px;margin:0 0 10px}
     .footer{margin-top:14px;font-size:13px;opacity:.7}
+
     .embedWrap{margin-top:16px;display:grid;gap:10px;place-items:center}
-    iframe{border-radius:14px;border:1px solid #eee;width:min(520px,100%);height:152px}
-    .yt{height:295px}
+    iframe{
+      border-radius:12px;border:1px solid #eee;
+      width:min(520px,100%);height:152px
+    }
+
+    /* Confetti canvas sits on top of everything */
+    #confettiCanvas{
+      position:fixed;inset:0;pointer-events:none;z-index:9999
+    }
   </style>
 </head>
 
 <body>
+  <canvas id="confettiCanvas" class="hidden"></canvas>
+
   <div class="card">
-    <h1>Lauryn ❤️</h1>
 
-    <!-- Upload lauryn.jpg into the repo -->
-    <img class="photo" src="lauryn.jpg" alt="Lauryn">
+    <!-- "PAGE 1" -->
+    <div id="page1">
+      <h1>Lauryn ❤️</h1>
 
-    <p>Before you unlock your Valentine message, answer this 😌</p>
-    <p><b>Question:</b> What was the acronym we used when we first started to know each other?</p>
+      <!-- Upload lauryn.jpg into your repo -->
+      <img class="photo" src="lauryn.jpg" alt="Lauryn">
 
-    <div class="row">
-      <input id="answer" placeholder="Type your answer here..." autocomplete="off">
-      <button class="primary" id="unlockBtn">Unlock 💌</button>
+      <p>Before you unlock your Valentine message, answer this 😌</p>
+      <p><b>Question:</b> What was the acronym we used when we first started to know each other?</p>
+
+      <div class="row">
+        <input id="answer" placeholder="Type your answer here..." autocomplete="off">
+        <button class="primary" id="unlockBtn">Unlock 💌</button>
+      </div>
+
+      <div class="hint">Hint: three letters. Not case sensitive.</div>
+      <div class="status" id="status"></div>
+
+      <div class="footer">Made with love by Paul-Emmanuel</div>
     </div>
 
-    <div class="hint">Hint: three letters. Not case sensitive.</div>
+    <!-- "PAGE 2" -->
+    <div id="page2" class="hidden">
+      <h1>Lauryn 💖</h1>
 
-    <div class="status" id="status"></div>
+      <img class="photo" src="lauryn.jpg" alt="Lauryn">
 
-    <div class="valentine hidden" id="valentineBox">
-      <div class="big">Will you be my Valentine? 💖</div>
-      <p>
-        I made this just for you. You make life feel lighter, calmer, and sweeter.
-        I’m choosing you, on purpose, every time.
-      </p>
-      <p style="margin:0;"><b>Reply “YES” to me right now 😄</b></p>
+      <div class="valentine">
+        <div class="big">Will you be my Valentine? 💌</div>
+        <p>
+          I made this just for you. You make life feel lighter, calmer, and sweeter.
+          I’m choosing you, on purpose, every time.
+        </p>
+        <p style="margin:0;"><b>Reply “YES” to me right now 😄</b></p>
+      </div>
+
+      <div class="embedWrap">
+        <p style="margin:0;font-size:16px;opacity:.85">Tap play below 🎵</p>
+
+        <!-- Your Spotify embed (track) -->
+        <iframe
+          src="https://open.spotify.com/embed/track/5s33nLb8BCeeKep2rfG7To?utm_source=generator"
+          width="100%"
+          height="152"
+          frameborder="0"
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="lazy"
+          title="Spotify player">
+        </iframe>
+
+        <div class="row">
+          <button class="secondary" id="replayConfettiBtn">Replay confetti 🎉</button>
+        </div>
+      </div>
+
+      <div class="footer">Made with love by Paul-Emmanuel</div>
     </div>
 
-    <div class="embedWrap">
-      <p style="margin:0;font-size:16px;opacity:.85">
-        Tap play below 🎵 (phones usually require a tap)
-      </p>
-
-      <!-- OPTION A (Spotify): paste your Spotify embed src URL here -->
-      <!-- Example format: https://open.spotify.com/embed/track/TRACK_ID -->
-      <iframe
-  style="border-radius:12px"
-  src="https://open.spotify.com/embed/track/5s33nLb8BCeeKep2rfG7To?utm_source=generator"
-  width="100%"
-  height="152"
-  frameborder="0"
-  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-  loading="lazy"
-  title="Spotify player">
-</iframe>
-
-
-      <!-- OPTION B (YouTube): if you prefer YouTube, uncomment this block and add your video id -->
-      <!--
-      <iframe
-        class="yt"
-        src="https://www.youtube.com/embed/VIDEO_ID_HERE?rel=0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        loading="lazy"
-        title="YouTube player">
-      </iframe>
-      -->
-    </div>
-
-    <div class="footer">Made with love by Paul-Emmanuel</div>
   </div>
 
   <script>
+    const page1 = document.getElementById("page1");
+    const page2 = document.getElementById("page2");
     const statusEl = document.getElementById("status");
-    const valentineBox = document.getElementById("valentineBox");
     const answerEl = document.getElementById("answer");
 
-    // Correct answer: NTD (case-insensitive)
     const correct = "ntd";
 
+    // --- "Two page" navigation using hash ---
+    function goToPage2() {
+      // Update URL so it feels like a new page
+      location.hash = "valentine";
+      page1.classList.add("hidden");
+      page2.classList.remove("hidden");
+      launchConfetti(1800);
+    }
+
+    function syncFromHash() {
+      if (location.hash === "#valentine") {
+        page1.classList.add("hidden");
+        page2.classList.remove("hidden");
+      } else {
+        page2.classList.add("hidden");
+        page1.classList.remove("hidden");
+      }
+    }
+    window.addEventListener("hashchange", syncFromHash);
+    syncFromHash();
+
+    // Unlock logic
     document.getElementById("unlockBtn").addEventListener("click", () => {
       const user = (answerEl.value || "").trim().toLowerCase();
       if (!user) { statusEl.textContent = "Type an answer first 🙂"; return; }
       if (user === correct) {
-        statusEl.textContent = "Correct 😌 Unlocking...";
-        valentineBox.classList.remove("hidden");
+        statusEl.textContent = "Correct 😌";
+        goToPage2();
       } else {
         statusEl.textContent = "Nope 🙈 Try again.";
       }
+    });
+
+    // --- Confetti (no libraries) ---
+    const canvas = document.getElementById("confettiCanvas");
+    const ctx = canvas.getContext("2d");
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth * (window.devicePixelRatio || 1);
+      canvas.height = window.innerHeight * (window.devicePixelRatio || 1);
+      ctx.setTransform((window.devicePixelRatio || 1), 0, 0, (window.devicePixelRatio || 1), 0, 0);
+    }
+    window.addEventListener("resize", resizeCanvas);
+
+    function launchConfetti(durationMs = 1500) {
+      canvas.classList.remove("hidden");
+      resizeCanvas();
+
+      const pieces = [];
+      const count = 180;
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+
+      for (let i = 0; i < count; i++) {
+        pieces.push({
+          x: Math.random() * w,
+          y: -20 - Math.random() * h * 0.3,
+          size: 6 + Math.random() * 8,
+          vx: -2 + Math.random() * 4,
+          vy: 2 + Math.random() * 5,
+          rot: Math.random() * Math.PI,
+          vr: -0.2 + Math.random() * 0.4,
+          shape: Math.random() < 0.5 ? "rect" : "circle"
+        });
+      }
+
+      const start = performance.now();
+
+      function frame(t) {
+        const elapsed = t - start;
+        ctx.clearRect(0, 0, w, h);
+
+        for (const p of pieces) {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.rot += p.vr;
+          p.vy += 0.02; // gravity
+
+          // wrap sideways
+          if (p.x < -30) p.x = w + 30;
+          if (p.x > w + 30) p.x = -30;
+
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.rot);
+
+          // Random bright-ish color each draw (keeps it fun, no fixed palette)
+          const r = (150 + Math.random()*105) | 0;
+          const g = (150 + Math.random()*105) | 0;
+          const b = (150 + Math.random()*105) | 0;
+          ctx.fillStyle = `rgb(${r},${g},${b})`;
+
+          if (p.shape === "rect") {
+            ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size*0.65);
+          } else {
+            ctx.beginPath();
+            ctx.arc(0, 0, p.size/2, 0, Math.PI * 2);
+            ctx.fill();
+          }
+
+          ctx.restore();
+        }
+
+        if (elapsed < durationMs) {
+          requestAnimationFrame(frame);
+        } else {
+          ctx.clearRect(0, 0, w, h);
+          canvas.classList.add("hidden");
+        }
+      }
+
+      requestAnimationFrame(frame);
+    }
+
+    document.getElementById("replayConfettiBtn").addEventListener("click", () => {
+      launchConfetti(1800);
     });
   </script>
 </body>
